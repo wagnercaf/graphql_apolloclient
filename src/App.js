@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+
+import Form from "./components/Form";
+import Contatos from "./components/Contatos";
+import Header from "./components/Header";
+
+import { client } from "./config/client-graphql";
+import { gql } from "@apollo/client";
+
+import "./App.css";
 
 function App() {
+  useEffect(() => {
+    initial();
+  }, []);
+
+  function initial() {
+    client
+      .query({
+        query: gql`
+          query {
+            contatos {
+              id
+              nome
+              email
+              telefone
+            }
+          }
+        `,
+      })
+      .then((res) => console.log(res));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header text="Contatos" />
+      <main className="main">
+        <Form />
+        <Contatos />
+      </main>
     </div>
   );
 }
