@@ -12,13 +12,18 @@ export const GET_CONTATOS = gql`
 `;
 
 const ContatoInput = {
-    nome: "" , 
+    nome: "", 
     email: "", 
     telefone: ""
 }
 
+const FiltroInput ={
+    id: 0,
+    email: ""
+  }
+  
 export const ADD_CONTATOS = gql`
-    mutation Mutation($data: ContatoInput) {
+    mutation criarContato($data: ContatoInput) {
         criarContato(data: $data) {
         id
         nome
@@ -28,3 +33,8 @@ export const ADD_CONTATOS = gql`
     }
 `;
 
+export const REMOVE_CONTATOS = gql`
+    mutation deletarContato($filtro: FiltroInput) {
+        deletarContato(filtro: $filtro) 
+    }
+`;
