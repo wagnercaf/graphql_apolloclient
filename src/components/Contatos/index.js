@@ -1,15 +1,22 @@
 import React from "react";
 import Item from "../Item";
+import { useContatosContext } from "../../context/ContatosContext";
 
-import data from "../../data";
+const ContainerContatos = ({children})=>(
+  <div className="contatos">{children}</div>
+)
 
 function Contatos() {
+  const { contatos } = useContatosContext();
+
+  if (contatos.loading) return <ContainerContatos>Carregando...</ContainerContatos>
+
   return (
-    <div className="contatos">
-      {data.map((item, index) => (
+    <ContainerContatos>
+      {contatos.itens.map((item, index) => (
         <Item key={index} item={item} />
       ))}
-    </div>
+    </ContainerContatos>
   );
 }
 
