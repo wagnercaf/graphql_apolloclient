@@ -38,3 +38,14 @@ export const REMOVE_CONTATOS = gql`
         deletarContato(filtro: $filtro) 
     }
 `;
+
+export const UPDATE_CONTATOS = gql`
+    mutation atualizarContato($id: Int!, $data: ContatoInput) {
+        atualizarContato(id: $id, data: $data) {
+            id
+            nome
+            email
+            telefone
+        }
+    }    
+`;

@@ -1,35 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useContatosContext } from "../../context/ContatosContext";
 
-const valorInicial = { nome: "", email: "", telefone: "" };
-
 export default function Form() {
-  const { contatos }= useContatosContext();
-  const [inputs, setInputs] = useState(valorInicial);  
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    contatos.criarContato({
-      variables: {data: inputs},
-    });
-    console.log(inputs);
-    setInputs(valorInicial);
-  }
-
-  function handleChange(input) {
-    setInputs({ ...inputs, [input.target.name]: input.target.value });
-  }
+  const { form } = useContatosContext();
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={form.handleSubmit}>
       <div className="form-group">
         <label>Nome</label>
         <input
+          type="hidden"
+          name="id"
+          ref={form.refId}
+        />
+        <input
           type="text"
-          onChange={handleChange}
           name="nome"
-          value={inputs.nome}
+          ref={form.refNome}
         />
       </div>
 
@@ -37,9 +24,8 @@ export default function Form() {
         <label>E-mail</label>
         <input
           type="text"
-          onChange={handleChange}
           name="email"
-          value={inputs.email}
+          ref={form.refEmail}
         />
       </div>
 
@@ -47,9 +33,8 @@ export default function Form() {
         <label>Telefone</label>
         <input
           type="text"
-          onChange={handleChange}
           name="telefone"
-          value={inputs.telefone}
+          ref={form.refTelefone}
         />
       </div>
 
